@@ -38,3 +38,23 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.body {
+    margin:auto;
+    width:70%;
+    border: 2px dashed black;
+}
+
+#login {
+    width:40%;
+    float:left;
+    border: 2px dashed red;
+}
+
+#register {
+    width:60%;
+
+    float: left;
+    border: 2px dashed green;
+
+}

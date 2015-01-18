@@ -66,5 +66,5 @@ def register(request):
                                         password=registration_form.cleaned_data['password1'],
                                         email=registration_form.cleaned_data['username'])
     new_user.save()
-    context['registered'] = "You have successfully registered"
+    context['registered'] = "You have successfully registered!"
     return render(request, 'registration.html', context)

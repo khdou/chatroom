@@ -1,2 +1,14 @@
 {% extends 'basePage.html' %}
 {% block title %}Chat{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/chat.css">
+{% endblock %}
+
+{% block body %}
+    <div id="chat">
+        <h1>Board:</h1>
+    </div>
+
+    <a href=" {% url 'logout' %}">Logout</a>
+{% endblock body %}

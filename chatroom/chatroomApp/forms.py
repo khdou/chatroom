@@ -21,8 +21,6 @@ class RegistrationForm(forms.Form):
     # Customizes form validation for properties that apply to more
     # than one field.  Overrides the forms.Form.clean function.
     def clean(self):
-        # Calls our parent (forms.Form) .clean function, gets a dictionary
-        # of cleaned data as a result
         cleaned_data = super(RegistrationForm, self).clean()
 
         # Confirms that the two password fields match
@@ -31,6 +29,11 @@ class RegistrationForm(forms.Form):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords did not match.")
 
+        last_name = cleaned_data.get('last_name')
+        if User.objects.filter(last_name__exact=last_name):
+            for user in User.objects.filter(last_name__exact=last_name):
+                if user.first_name == cleaned_data.get('first_name'):
+                    raise forms.ValidationError("Name already exists.")
         # We must return the cleaned data we got from our parent.
         return cleaned_data
 
@@ -45,3 +48,4 @@ class RegistrationForm(forms.Form):
         # We must return the cleaned data we got from the cleaned_data
         # dictionary
         return username
+

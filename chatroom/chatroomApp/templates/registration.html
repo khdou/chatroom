@@ -1,2 +1,84 @@
 {% extends 'basePage.html' %}
 {% block title %}Login{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/signin.css">
+{% endblock %}
+
+{% block body %}
+    <div class="body">
+        <div id="login">
+            <div class="container">
+                <h1> Log In Here:</h1>
+
+                <form method="post" action="{% url 'login' %}">
+                    <table class="lead" style="text-align: right">
+                        <tr>
+                            <td>Email:</td>
+                            <td style="color: #000000">{{ login_form.username }}</td>
+                            <td style="color: red">{{ login_form.username.errors }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Password:</td>
+                            <td style="color: #000000">{{ login_form.password }}</td>
+                            <td style="color: red">{{ login_form.password.errors }}</td>
+                        </tr>
+                    </table>
+                    <p class="lead">
+                        <input type="submit" class="btn btn-lg btn-default" value="Log In!"/>
+                    </p>
+
+                {% csrf_token %}
+                </form>
+
+            </div>
+        </div>
+
+        <div id="register">
+            <div class="container">
+                <h1>Register Here:</h1>
+                <form method="post" action="{% url 'register' %}">
+
+                    <table class="lead" style="text-align: right">
+                        <tr>
+                            <td>Email:</td>
+                            <td style="color: #000000">{{ registration_form.username }}</td>
+                            <td style="color: red">{{ registration_form.username.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>First Name:</td>
+                            <td style="color: #000000">{{ registration_form.first_name }}</td>
+                            <td style="color: red">{{ registration_form.first_name.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>Last Name:</td>
+                            <td style="color: #000000;border-radius:10px">{{ registration_form.last_name }}</td>
+                            <td style="color: red; border-radius:10px ">{{ registration_form.last_name.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td style="color: #000000">{{ registration_form.password1 }}</td>
+                            <td style="color: red">{{ registration_form.password1.errors }}</td>
+                        </tr>
+                        <tr>
+                            <td>Confirm Password:</td>
+                            <td style="color: #000000">{{ registration_form.password2 }}</td>
+                            <td style="color: red">{{ registration_form.password2.errors }}</td>
+                        </tr>
+                    </table>
+                    <p class="lead">
+                        <input type="submit" class="btn btn-lg btn-default" value="Register!"/>
+                    </p>
+                    {% for error in registration_form.non_field_errors %}
+                        <h4 style="color: red">{{ error }}</h4>
+                    {% endfor %}
+                     <h4 style="color: red">{{ registered }}</h4>
+
+                {% csrf_token %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
