@@ -33,11 +33,13 @@ from forms import *
 @login_required
 def home(request):
     context = {}
-    return render(request,'templates/chat.html',context)
+    return render(request,'chat.html',context)
 
-def add_message(request):
+@login_required
+@transaction.atomic
+def add_message(request,id):
     context = {}
-    return render(request,'templates/baseMessage.html',context)
+    return render(request,'baseMessage.html',context)
 
 @transaction.atomic
 def register(request):
@@ -46,23 +48,23 @@ def register(request):
     context['login_form'] = AuthenticationForm()
     # Just display the registration form if this is a GET request.
     if request.method == 'GET':
-        context['form'] = RegistrationForm()
-        return render(request, 'templates/registration.html', context)
+        context['registration_form'] = RegistrationForm()
+        return render(request, 'registration.html', context)
 
     # Creates a bound form from the request POST parameters and makes the
     # form available in the request context dictionary.
-    form = RegistrationForm(request.POST)
-    context['form'] = form
+    registration_form = RegistrationForm(request.POST)
+    context['registration_form'] = registration_form
 
     # Validates the form.
-    if not form.is_valid():
-        return render(request, 'templates/registration.html', context)
+    if not registration_form.is_valid():
+        return render(request, 'registration.html', context)
     # If we get here the form data was valid.  Register and login the user.
-    new_user = User.objects.create_user(username=form.cleaned_data['username'],
-                                        first_name=form.cleaned_data['first_name'],
-                                        last_name=form.cleaned_data['last_name'],
-                                        password=form.cleaned_data['password1'],
-                                        email=form.cleaned_data['username'])
+    new_user = User.objects.create_user(username=registration_form.cleaned_data['username'],
+                                        first_name=registration_form.cleaned_data['first_name'],
+                                        last_name=registration_form.cleaned_data['last_name'],
+                                        password=registration_form.cleaned_data['password1'],
+                                        email=registration_form.cleaned_data['username'])
     new_user.save()
-
-    return render(request, 'templates/registered.html', context)
+    context['registered'] = "You have successfully registered"
+    return render(request, 'registration.html', context)

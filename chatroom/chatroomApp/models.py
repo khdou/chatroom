@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Message(models.Model):
     # Owner of Message
-    profile = models.ForeignKey(User,related_name="message");
+    owner = models.ForeignKey(User);
 
     # Time and text of message
     date = models.DateTimeField()
