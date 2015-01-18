@@ -49,3 +49,8 @@ class RegistrationForm(forms.Form):
         # dictionary
         return username
 
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        widgets = {'text': forms.Textarea(attrs={'rows':'1','cols':'40',}),}
+        exclude = ('owner','date')

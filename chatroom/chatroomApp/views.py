@@ -28,18 +28,33 @@ from mimetypes import guess_type
 
 from models import *
 from forms import *
+from datetime import datetime
 
 # Create your views here.
 @login_required
 def home(request):
     context = {}
+    # Sorts all messages by date
+    context['messages'] = Message.objects.all().order_by('date')
+    context['message_form'] = MessageForm()
     return render(request,'chat.html',context)
 
 @login_required
 @transaction.atomic
-def add_message(request,id):
+def add_message(request):
     context = {}
-    return render(request,'baseMessage.html',context)
+    if request.GET:
+        return redirect(request.META.get("HTTP_REFERER"))
+    user = request.user
+    new_message = Message(owner=user,date=datetime.now())
+
+    form = MessageForm(request.POST,instance=new_message)
+    if not form.is_valid():
+        return redirect(reverse('home'))
+
+    form.save()
+
+    return redirect(reverse('home'))
 
 @transaction.atomic
 def register(request):
