@@ -5,14 +5,14 @@ $(document).ready( function() {
     // Uses AJAX to send request to refresh page
     setInterval(function () {
         console.log("refreshing")
-        var grumble_id = $(".grumble").first().attr("grumble-id");
+        var message_id = $(".message").last().attr("data-message-id");
 
         $.ajax({
             type: "GET",
-            url: "/grumblr/get-new-grumbles/" + grumble_id,
+            url: "/chat/get-new-messages/" + message_id,
             success: function (response) {
-                grumble_list = $("#grumble_list");
-                grumble_list.prepend(response);
+                message_list = $("#message_list");
+                message_list.append(response);
             }
 
         });

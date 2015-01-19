@@ -56,6 +56,14 @@ def add_message(request):
 
     return redirect(reverse('home'))
 
+@login_required
+@transaction.atomic
+def get_new_messages(request,id):
+    context = {}
+    new_messages = Message.objects.filter(id__gt=id).order_by('date')
+    context['new_message_list'] = new_messages
+    return render(request,'newMessageList.html',context)
+
 @transaction.atomic
 def register(request):
     context = {}
