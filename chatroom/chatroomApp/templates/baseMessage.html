@@ -1,6 +1,7 @@
 <div class="message" data-message-id="{{ message.id }}">
-    <p>"{{ message.text }}"</p>
-    <p>by {{ message.owner.first_name }}
-        {{ message.owner.last_name }} on
-        {{ message.date }}</p>
+    <p>{{ message.owner.first_name }}
+        {{ message.owner.last_name }} - {{ message.date }} </p>
+
+    <p style="text-align: right">{{ message.text }}</p>
+
 </div>

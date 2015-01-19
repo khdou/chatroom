@@ -52,5 +52,5 @@ class RegistrationForm(forms.Form):
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
-        widgets = {'text': forms.Textarea(attrs={'rows':'3','cols':'40',}),}
+        widgets = {'text': forms.Textarea(attrs={'rows':'3','cols':'105',}),}
         exclude = ('owner','date')

@@ -5,10 +5,13 @@
 {% endblock %}
 
 {% block body %}
+
     <div class="body">
+        <h1 style="text-align: center"> FSE Chat Room</h1>
+
         <div id="login">
             <div class="container">
-                <h1> Log In Here:</h1>
+                <h2> Enter the room</h2>
 
                 <form method="post" action="{% url 'login' %}">
                     <table class="lead" style="text-align: right">
@@ -36,7 +39,7 @@
 
         <div id="register">
             <div class="container">
-                <h1>Register Here:</h1>
+                <h2>Create an account</h2>
                 <form method="post" action="{% url 'register' %}">
 
                     <table class="lead" style="text-align: right">

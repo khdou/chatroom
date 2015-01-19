@@ -37,6 +37,7 @@ def home(request):
     # Sorts all messages by date
     context['messages'] = Message.objects.all().order_by('date')
     context['message_form'] = MessageForm()
+    context['user'] = request.user
     return render(request,'chat.html',context)
 
 @login_required
